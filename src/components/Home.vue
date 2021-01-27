@@ -1,52 +1,100 @@
 
 <template>
   <v-app id="inspire">
-    <!-- <v-system-bar app>
-      <v-spacer></v-spacer>
-
-      <v-icon>mdi-square</v-icon>
-
-      <v-icon>mdi-circle</v-icon>
-
-      <v-icon>mdi-triangle</v-icon>
-    </v-system-bar> -->
-
     <v-app-bar app>
-      <!-- <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon> -->
-
       <v-toolbar-title>Pokemon</v-toolbar-title>
-    </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" fixed temporary>
-      <!--  -->
-    </v-navigation-drawer>
+      <v-text-field></v-text-field>
+    </v-app-bar>
 
     <v-main class="grey lighten-2">
       <v-container>
-        <v-row>
-          <template v-for="n in 4">
-            <v-col :key="n" class="mt-2" cols="12">
-              <strong>Category {{ n }}</strong>
-            </v-col>
-
-            <v-col v-for="j in 6" :key="`${n}${j}`" cols="6" md="2">
-              <v-sheet height="150"></v-sheet>
+        <!-- LIST -->
+        <pokemon-list>
+          <template v-if="itemPerPage && itemPerPage.length">
+            <v-col v-for="(pokemon, i) in itemPerPage" :key="i" cols="6" md="2">
+              <pokemon-item :pokemon="pokemon"></pokemon-item>
             </v-col>
           </template>
-        </v-row>
+        </pokemon-list>
+
+        <!-- PAGINATION -->
+        <div class="text-center">
+          <v-pagination
+            v-model="page"
+            :length="6"
+            @input="paginate"
+          ></v-pagination>
+        </div>
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import PokemonList from "./../pokemon/PokemonList";
+import PokemonItem from "./../pokemon/PokemonItem";
+
 export default {
   name: "Home",
 
+  components: {
+    PokemonList,
+    PokemonItem,
+  },
+
   data() {
     return {
-      drawer: null,
+      pokemons: [],
+
+      itemPerPage: 0,
+      page: 1,
+      offset: 0,
+      limit: 20,
     };
+  },
+
+  computed: {
+    baseUrl() {
+      return "https://pokeapi.co/api/v2/pokemon";
+    },
+
+    url() {
+      if (this.page > 1) {
+        console.log("> 1");
+
+        this.offset = this.limit * (this.page - 1);
+
+        return `${this.baseUrl}/?offset=${this.offset}&limit=${this.limit}
+        `;
+      }
+
+      return `${this.baseUrl}/?offset=0&limit=${this.limit}`;
+    },
+  },
+
+  created() {
+    this.fetch();
+  },
+
+  methods: {
+    fetch() {
+      console.log(this.url);
+
+      axios.get(this.url).then(({ data }) => {
+        this.pokemons = data;
+        this.itemPerPage = data.results;
+      });
+    },
+
+    paginate(id) {
+      this.page = id;
+
+      // console.log(this.url);
+      // return;
+
+      this.fetch();
+    },
   },
 };
 </script>

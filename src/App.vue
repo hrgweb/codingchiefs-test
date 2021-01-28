@@ -44,7 +44,7 @@ export default {
       if (e.target.value.length) {
         let search = e.target.value.toLowerCase();
 
-        let data = store.state.pokemons.filter((pokemon) => {
+        let data = store.state.pagination.results.filter((pokemon) => {
           return pokemon.name.match(new RegExp(search, "i"));
         });
 

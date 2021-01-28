@@ -4,7 +4,7 @@
     <v-app-bar app>
       <v-toolbar-title>Pokemon</v-toolbar-title>
 
-      <v-text-field></v-text-field>
+      <v-text-field @keyup="onSearch"></v-text-field>
     </v-app-bar>
 
     <v-main class="grey lighten-2">
@@ -21,6 +21,7 @@
         <!-- PAGINATION -->
         <div class="text-center">
           <v-pagination
+            class="mt-10"
             v-model="page"
             :length="paginationCount"
             :total-visible="7"
@@ -33,6 +34,23 @@
 </template>
 
 <script>
+function debounce(func, wait, immediate) {
+  let timeout;
+
+  return function () {
+    let context = this,
+      args = arguments;
+    let later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    let callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
 import PokemonList from "./../pokemon/PokemonList";
 import PokemonItem from "./../pokemon/PokemonItem";
 
@@ -47,6 +65,7 @@ export default {
   data() {
     return {
       pokemons: [],
+      search: "",
 
       itemPerPage: 0,
       page: 1,
@@ -94,6 +113,10 @@ export default {
       this.page = id;
       this.fetch();
     },
+
+    onSearch: debounce(function (e) {
+      console.log(e.target.value);
+    }, 250),
   },
 };
 </script>

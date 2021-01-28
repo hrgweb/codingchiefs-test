@@ -11,8 +11,8 @@
       <v-container>
         <!-- LIST -->
         <pokemon-list>
-          <template v-if="itemPerPage && itemPerPage.length">
-            <v-col v-for="(pokemon, i) in itemPerPage" :key="i" cols="6" md="2">
+          <template v-if="itemPerPage">
+            <v-col v-for="(pokemon, i) in pokemons" :key="i" cols="6" md="2">
               <pokemon-item :pokemon="pokemon"></pokemon-item>
             </v-col>
           </template>
@@ -67,6 +67,7 @@ export default {
       pokemons: [],
       search: "",
 
+      pagination: {},
       itemPerPage: 0,
       page: 1,
       offset: 0,
@@ -103,8 +104,9 @@ export default {
   methods: {
     fetch() {
       axios.get(this.url).then(({ data }) => {
-        this.pokemons = data;
-        this.itemPerPage = data.results;
+        this.pagination = data;
+        this.pokemons = data.results;
+        this.itemPerPage = data.results.length;
         this.paginationLength = data.count;
       });
     },
@@ -115,7 +117,21 @@ export default {
     },
 
     onSearch: debounce(function (e) {
-      console.log(e.target.value);
+      // CHECH IF SEARCH IS NOT EMPTY
+      if (e.target.value.length) {
+        this.search = e.target.value.toLowerCase();
+
+        let data = this.pokemons.filter((pokemon) => {
+          return pokemon.name.match(new RegExp(this.search, "i"));
+        });
+
+        this.pokemons = data;
+
+        return;
+      }
+
+      // IF EMPTY THEN RESET THE DEFAULT VALUES
+      this.pokemons = this.pagination.results;
     }, 250),
   },
 };

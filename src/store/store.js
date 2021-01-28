@@ -42,8 +42,8 @@ const store = new Vuex.Store({
       state.paginationLength = data.count;
     },
 
-    ON_SEARCH(state, payload) {
-      console.log("search", state, payload);
+    ON_SEARCH(state, data) {
+      state.pokemons = data;
     },
   },
 

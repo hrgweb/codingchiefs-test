@@ -22,7 +22,8 @@
         <div class="text-center">
           <v-pagination
             v-model="page"
-            :length="6"
+            :length="paginationCount"
+            :total-visible="7"
             @input="paginate"
           ></v-pagination>
         </div>
@@ -51,6 +52,7 @@ export default {
       page: 1,
       offset: 0,
       limit: 20,
+      paginationLength: 0,
     };
   },
 
@@ -71,6 +73,10 @@ export default {
 
       return `${this.baseUrl}/?offset=0&limit=${this.limit}`;
     },
+
+    paginationCount() {
+      return Math.ceil(this.paginationLength / this.limit);
+    },
   },
 
   created() {
@@ -84,6 +90,7 @@ export default {
       axios.get(this.url).then(({ data }) => {
         this.pokemons = data;
         this.itemPerPage = data.results;
+        this.paginationLength = data.count;
       });
     },
 

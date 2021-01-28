@@ -1,20 +1,16 @@
 
 <template>
-  <v-container>
+  <div class="home mt-12 ml-auto mr-auto" style="width: 920px">
     <!-- LIST -->
     <pokemon-list>
       <template v-if="Store.state.itemPerPage">
-        <v-col
+        <pokemon-item
+          :pokemon="pokemon"
           v-for="(pokemon, i) in Store.state.pokemons"
           :key="i"
-          cols="6"
           md="2"
-        >
-          <pokemon-item
-            :pokemon="pokemon"
-            @on-click-pokemon="onClickPokemon"
-          ></pokemon-item>
-        </v-col>
+          @on-click-pokemon="onClickPokemon"
+        ></pokemon-item>
       </template>
     </pokemon-list>
 
@@ -28,7 +24,7 @@
         @input="paginate"
       ></v-pagination>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>

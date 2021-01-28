@@ -1,9 +1,13 @@
 <template>
-  <div class="pokemon-item">
-    <v-card class="mx-auto" max-width="344">
+  <v-col>
+    <v-card
+      class="mx-auto"
+      max-width="210"
+      @click="$emit('on-click-pokemon', pokemon)"
+    >
       <v-img
         src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-        height="150px"
+        height="200px"
       ></v-img>
 
       <v-card-title style="margin-bottom: 6px"> {{ name }} </v-card-title>
@@ -18,7 +22,7 @@
         >
       </v-card-subtitle>
     </v-card>
-  </div>
+  </v-col>
 </template>
 
 <script>

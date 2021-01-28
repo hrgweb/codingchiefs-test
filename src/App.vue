@@ -7,7 +7,9 @@
       </v-app-bar>
 
       <v-main class="grey lighten-2">
-        <router-view />
+        <v-container>
+          <router-view />
+        </v-container>
       </v-main>
     </v-app>
   </div>

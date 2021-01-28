@@ -63,8 +63,6 @@ export default {
 
     url() {
       if (this.page > 1) {
-        console.log("> 1");
-
         this.offset = this.limit * (this.page - 1);
 
         return `${this.baseUrl}/?offset=${this.offset}&limit=${this.limit}
@@ -85,8 +83,6 @@ export default {
 
   methods: {
     fetch() {
-      console.log(this.url);
-
       axios.get(this.url).then(({ data }) => {
         this.pokemons = data;
         this.itemPerPage = data.results;
@@ -96,10 +92,6 @@ export default {
 
     paginate(id) {
       this.page = id;
-
-      // console.log(this.url);
-      // return;
-
       this.fetch();
     },
   },

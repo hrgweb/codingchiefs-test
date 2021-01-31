@@ -9,7 +9,7 @@
         ></v-progress-linear>
       </template>
 
-      <v-toolbar app>
+      <v-toolbar>
         <v-btn icon @click="$router.push('/')">
           <v-icon>mdi-keyboard-backspace</v-icon>
         </v-btn>

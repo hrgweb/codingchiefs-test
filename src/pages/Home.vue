@@ -15,7 +15,7 @@
     </pokemon-list>
 
     <!-- PAGINATION -->
-    <div class="text-center">
+    <div class="text-center" v-if="!noResult">
       <v-pagination
         class="mt-10"
         v-model="Store.state.page"
@@ -24,12 +24,18 @@
         @input="paginate"
       ></v-pagination>
     </div>
+
+    <!-- NO RESULT -->
+    <div class="no-result" v-else>
+      <no-result type="error" msg="No result found."></no-result>
+    </div>
   </div>
 </template>
 
 <script>
-import PokemonList from "./../components/views/pokemon/PokemonList";
-import PokemonItem from "./../components/views/pokemon/PokemonItem";
+import PokemonList from "@/components/views/pokemon/PokemonList";
+import PokemonItem from "@/components/views/pokemon/PokemonItem";
+import NoResult from "@/components/shared/NoResult";
 
 export default {
   name: "Home",
@@ -37,6 +43,7 @@ export default {
   components: {
     PokemonList,
     PokemonItem,
+    NoResult,
   },
 
   data() {
@@ -48,6 +55,10 @@ export default {
   computed: {
     paginationCount() {
       return Math.ceil(store.state.paginationLength / store.state.limit);
+    },
+
+    noResult() {
+      return store.state.pokemons.length === 0;
     },
   },
 

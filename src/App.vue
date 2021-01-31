@@ -1,18 +1,24 @@
 <template>
-  <div id="app">
-    <v-app id="inspire">
-      <v-app-bar app>
-        <v-toolbar-title>Pokemon</v-toolbar-title>
-        <v-text-field @keyup="onSearch"></v-text-field>
-      </v-app-bar>
+  <v-app>
+    <v-app-bar app>
+      <v-toolbar-title>Pokemon</v-toolbar-title>
 
-      <v-main class="grey lighten-2">
-        <v-container>
-          <router-view />
-        </v-container>
-      </v-main>
-    </v-app>
-  </div>
+      <v-text-field
+        class="mt-6 ml-3"
+        placeholder="Search"
+        filled
+        rounded
+        dense
+        @keyup="onSearch"
+      ></v-text-field>
+    </v-app-bar>
+
+    <v-main class="grey lighten-2">
+      <v-container>
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>

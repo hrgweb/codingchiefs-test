@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <v-card :loading="loading" class="mx-auto" max-width="374">
+    <v-card :loading="loading" class="mx-auto" :max-width="containerWidth">
       <template slot="progress">
         <v-progress-linear
           color="deep-purple"
@@ -9,14 +9,24 @@
         ></v-progress-linear>
       </template>
 
+      <pre>{{ $vuetify.breakpoint.name }}</pre>
+
       <v-card-title class="text-h5 grey lighten-3">{{ name }}</v-card-title>
 
       <v-img :src="avatar"></v-img>
 
+      <!-- STATS BOX -->
+      <v-row class="mx-2">
+        <v-col v-for="(stat, index) in stats" :key="index" :cols="statCols">
+          <stat-box :stat="stat"></stat-box>
+        </v-col>
+      </v-row>
+
       <v-card-text>
         <div class="my-4 text-h6">About</div>
 
-        <div class="text-left">{{ about }}</div>
+        <!-- <div class="text-left">{{ about }}</div> -->
+        <div class="text-left">{{ "---" }}</div>
       </v-card-text>
 
       <div class="quick-details blue ma-4 rounded-lg">
@@ -100,9 +110,14 @@
 
 <script>
 import Pokemon from "@/class/Pokemon";
+import StatBox from "@/components/shared/StatBox";
 
 export default {
   name: "Details",
+
+  components: {
+    StatBox,
+  },
 
   data() {
     return {
@@ -116,6 +131,7 @@ export default {
       height: "",
       weight: "",
       types: [],
+      stats: [],
 
       loading: false,
     };
@@ -124,6 +140,57 @@ export default {
   computed: {
     url() {
       return this.$route.query.url;
+    },
+
+    containerWidth() {
+      let width = 374;
+
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          width = 599;
+          break;
+
+        case "sm":
+          width = 600;
+          break;
+
+        case "md":
+          width = 1020;
+
+        default:
+          width = 1020;
+          break;
+      }
+
+      return width;
+    },
+
+    statCols() {
+      let cols = 12;
+
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          cols = 12;
+          break;
+
+        case "sm":
+          cols = 6;
+          break;
+
+        case "md":
+          cols = 4;
+          break;
+
+        case "lg":
+          cols = 3;
+          break;
+
+        default:
+          cols = 2;
+          break;
+      }
+
+      return cols;
     },
   },
 
@@ -149,6 +216,7 @@ export default {
         this.height = Pokemon.height(data);
         this.weight = Pokemon.weight(data);
         this.types = Pokemon.types(data);
+        this.stats = Pokemon.stats(data);
       });
     },
 

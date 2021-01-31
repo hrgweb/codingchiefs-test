@@ -53,6 +53,12 @@ const store = new Vuex.Store({
         .get(context.getters.url)
         .then(({ data }) => context.commit("FETCH", data));
     },
+
+    // search({ state, getters, commit }) {
+    //   let url = `${getters.baseUrl}/${state.search}`;
+
+    //   axios.get(url).then(({ data }) => commit("ON_SEARCH", data));
+    // },
   },
 });
 

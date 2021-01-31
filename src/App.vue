@@ -4,6 +4,7 @@
       <v-toolbar-title>Pokemon</v-toolbar-title>
 
       <v-text-field
+        v-model="Store.state.search"
         class="mt-6 ml-3"
         placeholder="Search"
         filled
@@ -42,15 +43,24 @@ function debounce(func, wait, immediate) {
 export default {
   data() {
     return {
-      search: "",
+      Store: store,
     };
   },
 
   methods: {
     onSearch: debounce(function (e) {
+      // CHECK IF ITS HOMEPAGE, THEN DO DIRECT SEARCH
+      // if (!location.search) {
       // CHECH IF SEARCH IS NOT EMPTY
       if (e.target.value.length) {
         let search = e.target.value.toLowerCase();
+
+        // CHECK IF THERE IS POKEMONS
+        if (!store.state.pagination.results) {
+          alert("Please go back to homepage to search pokemon");
+
+          return;
+        }
 
         let data = store.state.pagination.results.filter((pokemon) => {
           return pokemon.name.match(new RegExp(search, "i"));
@@ -63,7 +73,12 @@ export default {
 
       // IF EMPTY THEN RESET THE DEFAULT VALUES
       store.state.pokemons = store.state.pagination.results;
-    }, 250),
+      // }
+      // DO GLOBAL SEARCH
+      // else {
+      //   store.dispatch("search");
+      // }
+    }, 500),
   },
 };
 </script>

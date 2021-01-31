@@ -11,7 +11,7 @@
           v-for="(type, n) in types"
           :key="n"
           style="margin-right: 4px"
-          >{{ type.name.toUpperCase() }}</v-chip
+          >{{ type }}</v-chip
         >
       </v-card-subtitle>
     </v-card>
@@ -53,7 +53,7 @@ export default {
     fetchDetails() {
       axios.get(this.pokemon.url).then(({ data }) => {
         this.details = data;
-        this.types = Pokemon.types(data.types);
+        this.types = Pokemon.types(data);
         this.avatar = Pokemon.avatar(data);
       });
     },

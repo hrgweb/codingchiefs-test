@@ -41,7 +41,20 @@ class Pokemon {
   }
 
   static types(val) {
-    return val.types.map((item) => item.type.name);
+    return val.types.length
+      ? val.types.map((item) => item.type.name.toUpperCase() || "")
+      : [];
+  }
+
+  static stats(val) {
+    return val.stats.map((item) => {
+      let newStat = {};
+
+      newStat["base"] = item.base_stat;
+      newStat["name"] = item.stat.name;
+
+      return newStat;
+    });
   }
 }
 

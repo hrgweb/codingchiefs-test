@@ -5,10 +5,9 @@
     <pokemon-list>
       <template v-if="Store.state.itemPerPage">
         <pokemon-item
-          :pokemon="pokemon"
           v-for="(pokemon, i) in Store.state.pokemons"
+          :pokemon="pokemon"
           :key="i"
-          md="2"
           @on-click-pokemon="onClickPokemon"
         ></pokemon-item>
       </template>

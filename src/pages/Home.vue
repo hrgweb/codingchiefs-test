@@ -36,8 +36,6 @@ export default {
 
   created() {
     store.dispatch("fetch");
-
-    console.log(this.$vuetify.breakpoint.name);
   },
 
   methods: {

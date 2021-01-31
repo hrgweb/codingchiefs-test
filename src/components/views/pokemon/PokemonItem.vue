@@ -1,10 +1,7 @@
 <template>
   <v-col xs="12" sm="6" md="4" lg="3" xl="3">
     <v-card class="mx-auto" @click="$emit('on-click-pokemon', pokemon)">
-      <v-img
-        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-        height="200px"
-      ></v-img>
+      <v-img :src="avatar"></v-img>
 
       <v-card-title style="margin-bottom: 6px"> {{ name }} </v-card-title>
 
@@ -22,7 +19,7 @@
 </template>
 
 <script>
-import PokemonType from "./../../../class/PokemonType";
+import PokemonType from "@/class/PokemonType";
 
 export default {
   props: {
@@ -33,6 +30,7 @@ export default {
     return {
       details: {},
       types: [],
+      avatar: "",
     };
   },
 
@@ -42,17 +40,28 @@ export default {
     },
   },
 
-  created() {
-    this.fetchDetails();
+  watch: {
+    pokemon: {
+      immediate: true,
+      handler(val) {
+        this.fetchDetails();
+      },
+    },
   },
 
-  mounted() {},
-
   methods: {
+    pokemonAvatar(pokemon) {
+      const officialArtwork = "official-artwork";
+      const frontDefault = "front_default";
+
+      return pokemon.sprites.other[officialArtwork][frontDefault];
+    },
+
     fetchDetails() {
       axios.get(this.pokemon.url).then(({ data }) => {
         this.details = data;
         this.types = PokemonType.names(data.types);
+        this.avatar = this.pokemonAvatar(data);
       });
     },
   },

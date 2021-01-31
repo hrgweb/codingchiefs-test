@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import PokemonType from "@/class/PokemonType";
 import Pokemon from "@/class/Pokemon";
 
 export default {
@@ -54,7 +53,7 @@ export default {
     fetchDetails() {
       axios.get(this.pokemon.url).then(({ data }) => {
         this.details = data;
-        this.types = PokemonType.names(data.types);
+        this.types = Pokemon.types(data.types);
         this.avatar = Pokemon.avatar(data);
       });
     },

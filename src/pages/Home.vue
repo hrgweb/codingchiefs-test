@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import PokemonList from "./../pokemon/PokemonList";
-import PokemonItem from "./../pokemon/PokemonItem";
+import PokemonList from "./../components/views/pokemon/PokemonList";
+import PokemonItem from "./../components/views/pokemon/PokemonItem";
 
 export default {
   name: "Home",

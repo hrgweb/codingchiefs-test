@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import PokemonType from "./../class/PokemonType";
+import PokemonType from "./../../../class/PokemonType";
 
 export default {
   props: {

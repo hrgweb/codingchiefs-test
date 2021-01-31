@@ -1,5 +1,5 @@
 <template>
-  <v-col xs="12" sm="6" md="4">
+  <v-col xs="12" sm="6" md="4" lg="3" xl="3">
     <v-card class="mx-auto" @click="$emit('on-click-pokemon', pokemon)">
       <v-img
         src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"

@@ -4,6 +4,13 @@
 >
 > I haven't use any testing tool to test the project
 
+## Fremawork and Tools used
+
+- VueJS
+- Vuetify
+- Vue Router
+- Vuex
+
 ## Project setup
 
 - clone the project `git clone https://github.com/hrgweb/codingchiefs-test`

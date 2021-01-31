@@ -1,6 +1,6 @@
 
 <template>
-  <div class="home mt-12 ml-auto mr-auto" style="width: 920px">
+  <div class="home">
     <!-- LIST -->
     <pokemon-list>
       <template v-if="Store.state.itemPerPage">
@@ -13,29 +13,12 @@
         ></pokemon-item>
       </template>
     </pokemon-list>
-
-    <!-- PAGINATION -->
-    <div class="text-center" v-if="!noResult">
-      <v-pagination
-        class="mt-10"
-        v-model="Store.state.page"
-        :length="paginationCount"
-        :total-visible="7"
-        @input="paginate"
-      ></v-pagination>
-    </div>
-
-    <!-- NO RESULT -->
-    <div class="no-result" v-else>
-      <no-result type="error" msg="No result found."></no-result>
-    </div>
   </div>
 </template>
 
 <script>
 import PokemonList from "@/components/views/pokemon/PokemonList";
 import PokemonItem from "@/components/views/pokemon/PokemonItem";
-import NoResult from "@/components/shared/NoResult";
 
 export default {
   name: "Home",
@@ -43,7 +26,6 @@ export default {
   components: {
     PokemonList,
     PokemonItem,
-    NoResult,
   },
 
   data() {
@@ -52,26 +34,13 @@ export default {
     };
   },
 
-  computed: {
-    paginationCount() {
-      return Math.ceil(store.state.paginationLength / store.state.limit);
-    },
-
-    noResult() {
-      return store.state.pokemons.length === 0;
-    },
-  },
-
   created() {
     store.dispatch("fetch");
+
+    console.log(this.$vuetify.breakpoint.name);
   },
 
   methods: {
-    paginate(id) {
-      store.state.page = id;
-      store.dispatch("fetch");
-    },
-
     onClickPokemon(payload) {
       this.$router.push({ path: "/details", query: { url: payload.url } });
     },

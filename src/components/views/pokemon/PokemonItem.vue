@@ -1,10 +1,6 @@
 <template>
-  <v-col>
-    <v-card
-      class="mx-auto"
-      max-width="210"
-      @click="$emit('on-click-pokemon', pokemon)"
-    >
+  <v-col xs="12">
+    <v-card class="mx-auto" @click="$emit('on-click-pokemon', pokemon)">
       <v-img
         src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
         height="200px"

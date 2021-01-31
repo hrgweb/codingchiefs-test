@@ -7,7 +7,7 @@ class Pokemon {
   }
 
   static weight(val) {
-    return val.weight;
+    return `${val.weight}kg`;
   }
 
   static abilities(val) {
@@ -34,6 +34,14 @@ class Pokemon {
     );
 
     return enLanguages.map((item) => item.flavor_text).join("");
+  }
+
+  static height(val) {
+    return val.height;
+  }
+
+  static types(val) {
+    return val.types.map((item) => item.type.name);
   }
 }
 

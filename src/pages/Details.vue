@@ -19,6 +19,46 @@
         <div class="text-left">{{ about }}</div>
       </v-card-text>
 
+      <div class="quick-details blue ma-4 rounded-lg">
+        <v-row>
+          <!-- HEIGHT -->
+          <v-col>
+            <h3 class="white--text">Height</h3>
+            <span class="text-h5">{{ height }}</span>
+          </v-col>
+
+          <!-- CATEGORY -->
+          <v-col>
+            <h3 class="white--text">Category</h3>
+            <span class="text-h5">---</span>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <!-- WEIGHT -->
+          <v-col>
+            <h3 class="white--text">Weight</h3>
+            <span class="text-h5">{{ weight }}</span>
+          </v-col>
+
+          <!-- GENDER -->
+          <v-col>
+            <h3 class="white--text">Gender</h3>
+            <span class="text-h5">---</span>
+          </v-col>
+        </v-row>
+      </div>
+
+      <v-card-title>Types</v-card-title>
+
+      <v-card-text>
+        <v-chip-group active-class="deep-purple accent-4 white--text" column>
+          <v-chip v-for="(type, index) in types" :key="index">{{
+            type
+          }}</v-chip>
+        </v-chip-group>
+      </v-card-text>
+
       <v-divider class="mx-4"></v-divider>
 
       <v-card-title>Abilities</v-card-title>
@@ -73,6 +113,9 @@ export default {
       evolutions: [],
       moves: [],
       about: {},
+      height: "",
+      weight: "",
+      types: [],
 
       loading: false,
     };
@@ -103,6 +146,9 @@ export default {
         this.abilities = Pokemon.abilities(data);
         this.evolutions = Pokemon.evolutions(data);
         this.moves = Pokemon.moves(data);
+        this.height = Pokemon.height(data);
+        this.weight = Pokemon.weight(data);
+        this.types = Pokemon.types(data);
       });
     },
 

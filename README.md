@@ -1,24 +1,13 @@
-# codingchiefs-test
+# CodingChiefs - Test
+
+> **Note**:
+>
+> I haven't use any testing tool to test the project
 
 ## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- clone the project `git clone https://github.com/hrgweb/codingchiefs-test`
+- go to the project `codingchiefs-test` folder
+- open terminal and type `npm install`
+- after installation type `npm run serve`
+- good to go

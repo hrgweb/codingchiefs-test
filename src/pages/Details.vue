@@ -9,7 +9,13 @@
         ></v-progress-linear>
       </template>
 
-      <pre>{{ $vuetify.breakpoint.name }}</pre>
+      <v-toolbar app>
+        <v-btn icon @click="$router.push('/')">
+          <v-icon>mdi-keyboard-backspace</v-icon>
+        </v-btn>
+      </v-toolbar>
+
+      <!-- <pre>{{ $vuetify.breakpoint.name }}</pre> -->
 
       <v-card-title class="text-h5 grey lighten-3">{{ name }}</v-card-title>
 
@@ -25,8 +31,8 @@
       <v-card-text>
         <div class="my-4 text-h6">About</div>
 
-        <!-- <div class="text-left">{{ about }}</div> -->
-        <div class="text-left">{{ "---" }}</div>
+        <div class="text-left">{{ about }}</div>
+        <!-- <div class="text-left">{{ "---" }}</div> -->
       </v-card-text>
 
       <div class="quick-details blue ma-4 rounded-lg">
@@ -83,7 +89,7 @@
 
       <v-divider class="mx-4"></v-divider>
 
-      <v-card-title>Evolutions</v-card-title>
+      <v-card-title>Evolution</v-card-title>
 
       <v-card-text>
         <v-chip-group active-class="deep-purple accent-4 white--text" column>
@@ -203,6 +209,8 @@ export default {
 
   created() {
     this.fetch();
+
+    // store.dispatch("fetch"); // FETCH POKEMONS
   },
 
   methods: {

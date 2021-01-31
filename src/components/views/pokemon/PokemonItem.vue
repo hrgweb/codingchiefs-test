@@ -20,6 +20,7 @@
 
 <script>
 import PokemonType from "@/class/PokemonType";
+import Pokemon from "@/class/Pokemon";
 
 export default {
   props: {
@@ -50,18 +51,11 @@ export default {
   },
 
   methods: {
-    pokemonAvatar(pokemon) {
-      const officialArtwork = "official-artwork";
-      const frontDefault = "front_default";
-
-      return pokemon.sprites.other[officialArtwork][frontDefault];
-    },
-
     fetchDetails() {
       axios.get(this.pokemon.url).then(({ data }) => {
         this.details = data;
         this.types = PokemonType.names(data.types);
-        this.avatar = this.pokemonAvatar(data);
+        this.avatar = Pokemon.avatar(data);
       });
     },
   },
